@@ -77,6 +77,11 @@ class User implements UserInterface
      */
     private $cheeseListings;
 
+    /**
+     * @Groups("user:write")
+     */
+    private $plainPassword;
+
     public function __construct()
     {
         $this->cheeseListings = new ArrayCollection();
@@ -196,5 +201,15 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
     }
 }
