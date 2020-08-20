@@ -28,9 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "get",
  *          "put"={"access_control"="is_granted('ROLE_USER') and object == user"},
  *          "delete"={"access_control"="is_granted('ROLE_ADMIN')"}
- *     },
- *     normalizationContext={"groups"={"user:read"}},
- *     denormalizationContext={"groups"={"user:write"}},
+ *     }
  * )
  * @ApiFilter(PropertyFilter::class)
  * @UniqueEntity(fields={"username"})
@@ -57,7 +55,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"admin:write"})
+     * @Groups({"admin:read", "admin:write"})
      */
     private $roles = [];
 
@@ -69,7 +67,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"user:read", "user:write", "cheese_listing:item:get", "cheese_listing:write"})
+     * @Groups({"user:read", "user:write", "cheese:item:get", "cheese:write"})
      * @Assert\NotBlank()
      */
     private $username;
